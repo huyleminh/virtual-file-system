@@ -1,9 +1,10 @@
 export const HELP_COMMAND = `create       cr PATH [DATA]
 view file    cat FILE_PATH
 view folder  ls FOLDER_PATH
-delete       rm PATH [PATH PATH ...]
+delete       rm PATH [PATH2 PATH3 ...]
 
 * path must start with /
 * path can contain space, a-z, A-Z and number
-* parameters in [] are optional, if they are presented, please input without space
-eg: rm /folder /folder2`;
+* parameters in [] are optional
+* delete command: to represent paths in [], please add . before each path
+    eg: rm /folder [./folder2 ./folder3]`;
