@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { PageNotFound } from "./common/pages";
+import { PrivateRoute } from "./common/routes";
+import { HomePage } from "./features/home";
+import { TerminalFeature } from "./features/terminal";
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-        </>
+        <main className="main">
+            <Routes>
+                {/* Features */}
+                <Route path="/terminal/*" element={<PrivateRoute element={<TerminalFeature />} />} />
+                {/* Error */}
+                <Route path="/404" element={<PageNotFound />} />
+
+                <Route path="/" element={<HomePage />} />
+
+                <Route path="*" element={<Navigate to={"/404"} replace />} />
+            </Routes>
+        </main>
     );
 }
 

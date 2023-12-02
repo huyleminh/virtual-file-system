@@ -1,0 +1,58 @@
+.terminal-item {
+    position: relative;
+
+    .terminal-item-label {
+        position: absolute;
+        width: max-content;
+        top: 0;
+        left: 1.25rem;
+        color: white;
+
+        margin: 0rem 1.25rem 0 0;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    .terminal-item-input {
+        resize: none;
+        overflow: hidden;
+        background: transparent;
+        border: none;
+        color: white;
+        text-indent: 120px;
+
+        &:focus,
+        &:disabled {
+            color: white;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.terminal-display-item {
+    .terminal-item-input {
+        resize: none;
+        overflow: hidden;
+        background: transparent;
+        border: none;
+        color: white;
+        text-indent: 0;
+
+        &:focus,
+        &:disabled {
+            color: white;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+    }
+}
+
+::selection {
+    color: while;
+    background-color: #777883;
+}
