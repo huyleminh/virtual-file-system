@@ -26,10 +26,6 @@ export function TerminalItem(props: ITerminalItemProps) {
     };
 
     useEffect(() => {
-        if (!textRef || !textRef.current) {
-            return;
-        }
-
         function resize() {
             textRef.current!.style.height = "auto";
             textRef.current!.style.height = textRef.current!.scrollHeight + "px";
@@ -54,7 +50,7 @@ export function TerminalItem(props: ITerminalItemProps) {
         <>
             <div className="terminal-item ps-2 pe-4">
                 <Stack direction="horizontal" className="terminal-item-label">
-                    <p>[root@root]$</p>
+                    <p className="text-success">[root@root]$</p>
                 </Stack>
 
                 <Form onSubmit={handleSubmit}>
@@ -76,18 +72,9 @@ export function TerminalItem(props: ITerminalItemProps) {
                 </Form>
             </div>
 
-            {type === "view" && (
+            {type === "view" && data && (
                 <div className="terminal-display-item ps-2 pe-4">
-                    <FormGroup className="">
-                        <FormControl
-                            className="terminal-item-input py-0"
-                            type="text"
-                            rows={1}
-                            as="textarea"
-                            disabled
-                            defaultValue={data ?? ""}
-                        />
-                    </FormGroup>
+                    <pre className="terminal-display-item-inner ps-2 py-0">{data}</pre>
                 </div>
             )}
         </>

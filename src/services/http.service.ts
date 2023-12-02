@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
 
         const { status } = response;
 
-        if (status === 400) {
+        if (status >= 400 && status < 500) {
             return Promise.resolve(response);
         }
 

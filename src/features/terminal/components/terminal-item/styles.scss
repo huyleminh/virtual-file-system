@@ -34,21 +34,11 @@
 }
 
 .terminal-display-item {
-    .terminal-item-input {
-        resize: none;
-        overflow: hidden;
+    .terminal-display-item-inner {
         background: transparent;
         border: none;
         color: white;
-        text-indent: 0;
-
-        &:focus,
-        &:disabled {
-            color: white;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-        }
+        font-size: 100%;
     }
 }
 
