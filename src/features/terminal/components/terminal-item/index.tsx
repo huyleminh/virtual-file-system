@@ -26,6 +26,10 @@ export function TerminalItem(props: ITerminalItemProps) {
     };
 
     useEffect(() => {
+        if (!textRef.current) {
+            return;
+        }
+
         function resize() {
             textRef.current!.style.height = "auto";
             textRef.current!.style.height = textRef.current!.scrollHeight + "px";
@@ -33,6 +37,7 @@ export function TerminalItem(props: ITerminalItemProps) {
 
         function overrideEnter(event: KeyboardEvent) {
             if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
                 buttonRef?.current?.click();
             }
         }
@@ -41,6 +46,9 @@ export function TerminalItem(props: ITerminalItemProps) {
         textRef.current!.addEventListener("keypress", overrideEnter);
 
         return () => {
+            if (!textRef.current) {
+                return;
+            }
             textRef.current!.removeEventListener("input", resize);
             textRef.current!.removeEventListener("keypress", overrideEnter);
         };

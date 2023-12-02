@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { Stack } from "react-bootstrap";
 import { HELP_COMMAND } from "../../common/constants/help-command";
@@ -13,9 +14,9 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
     const [commandHistory, setCommandHistory] = useState<ICommandHistoryItem[]>([{ type: "input" }]);
 
     const handleSubmitCommand = (command: string) => {
+        const cloneHistory: ICommandHistoryItem[] = JSON.parse(JSON.stringify(commandHistory));
+        const last = cloneHistory[cloneHistory.length - 1];
         if (!command.trim()) {
-            const cloneHistory: ICommandHistoryItem[] = JSON.parse(JSON.stringify(commandHistory));
-            const last = cloneHistory[cloneHistory.length - 1];
             last.type = "view";
 
             cloneHistory.push({ type: "input" });
@@ -24,13 +25,16 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
         }
 
         if (command.trim() === "help") {
-            const cloneHistory: ICommandHistoryItem[] = JSON.parse(JSON.stringify(commandHistory));
-            const last = cloneHistory[cloneHistory.length - 1];
             last.type = "view";
             last.viewData = HELP_COMMAND;
 
             cloneHistory.push({ type: "input" });
             setCommandHistory(cloneHistory);
+            return;
+        }
+
+        if (command.trim() === "clear") {
+            setCommandHistory([{ type: "input" }]);
             return;
         }
 
@@ -54,10 +58,10 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
         <div className="terminal-container">
             <Stack direction="vertical">
                 <WelcomeItem />
-                {commandHistory.map((item, index) => {
+                {commandHistory.map((item) => {
                     return (
                         <TerminalItem
-                            key={index}
+                            key={nanoid()}
                             type={item.type}
                             command={item.command ?? ""}
                             data={item.viewData}
