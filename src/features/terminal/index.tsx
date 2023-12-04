@@ -16,6 +16,8 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
     const handleSubmitCommand = (command: string) => {
         const cloneHistory: ICommandHistoryItem[] = JSON.parse(JSON.stringify(commandHistory));
         const last = cloneHistory[cloneHistory.length - 1];
+        last.command = command;
+
         if (!command.trim()) {
             last.type = "view";
 
@@ -48,7 +50,8 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
         const cloneHistory: ICommandHistoryItem[] = JSON.parse(JSON.stringify(commandHistory));
         const last = cloneHistory[cloneHistory.length - 1];
         last.type = "view";
-        last.command = last.viewData = result;
+        last.command = command;
+        last.viewData = result;
         cloneHistory.push({ type: "input" });
 
         setCommandHistory(cloneHistory);
