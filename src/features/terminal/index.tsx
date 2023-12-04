@@ -7,10 +7,12 @@ import { ICommandHistoryItem } from "../../core/types";
 import { TerminalItem } from "./components/terminal-item";
 import { WelcomeItem } from "./components/welcome";
 import "./styles.scss";
+import { useNavigate } from "react-router-dom";
 
 export interface ITerminalFeatureProps {}
 
 export function TerminalFeature(_props: ITerminalFeatureProps) {
+    const navigate = useNavigate();
     const [commandHistory, setCommandHistory] = useState<ICommandHistoryItem[]>([{ type: "input" }]);
 
     const handleSubmitCommand = (command: string) => {
@@ -37,6 +39,11 @@ export function TerminalFeature(_props: ITerminalFeatureProps) {
 
         if (command.trim() === "clear") {
             setCommandHistory([{ type: "input" }]);
+            return;
+        }
+
+        if (command.trim() === "exit") {
+            navigate("/");
             return;
         }
 
